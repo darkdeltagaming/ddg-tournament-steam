@@ -1,4 +1,36 @@
 {
-    "accountName": "",
-    "password": ""
+    "steam": {
+        "accountName": "thelittleserver",
+        "password": "nxyD2fPFGrSs3A"
+    },
+    "api": {
+        "port": 5500
+    },
+    "maps": [
+        {
+            "mapName": "Lake",
+            "name": "cs_lake",
+            "workshop": false
+        },
+        {
+            "mapName": "Vertigo",
+            "name": "de_vertigo",
+            "workshop": false
+        },
+        {
+            "mapName": "Nuke",
+            "name": "de_nuke",
+            "workshop": false
+        },
+        {
+            "mapName": "Inferno",
+            "name": "de_inferno",
+            "workshop": false
+        },
+        {
+            "mapName": "Chill",
+            "name": "2244329191",
+            "workshop": true
+        }
+    ]
 }
