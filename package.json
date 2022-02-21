@@ -1,0 +1,16 @@
+{
+  "name": "steam-bot",
+  "version": "1.0.0",
+  "description": "Steam Bot to handle and send tournament links to participants. Also acts as backend for the website.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "DanL, NoRysq, cloudybyte",
+  "license": "ISC",
+  "dependencies": {
+    "steam-totp": "^2.1.1",
+    "steam-user": "^4.20.2",
+    "websocket": "^1.0.34"
+  }
+}
