@@ -1,7 +1,6 @@
 const WebSocketServer = require('websocket').server;
 
 function init() {
-    console.log("Success");
     const socket = new WebSocketServer();
 
     socket.on('request', (request) => {
