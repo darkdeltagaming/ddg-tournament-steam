@@ -4,12 +4,14 @@
   "description": "Steam Bot to handle and send tournament links to participants. Also acts as backend for the website.",
   "main": "index.js",
   "scripts": {
-      "server": "nodemon index.js"
+    "server": "nodemon index.js"
   },
   "author": "DanL, NoRysq, cloudybyte",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.3",
+    "express-sse": "^0.5.1",
     "steam-totp": "^2.1.1",
     "steam-user": "^4.20.2",
     "websocket": "^1.0.34"

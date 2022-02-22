@@ -1,9 +1,18 @@
 const express = require('express');
+const cors = require('cors');
+const SSE = require('express-sse');
 const config = require('./config.json');
+
+let sse;
 
 function init() {
     const app = express();
     const port = config.api.port || 5500;
+    app.use(cors());
+    app.use(express.json());
+
+    sse = new SSE();
+    app.get('/events', sse.init);
     
     const match = require('./routes/match');
     const maps = require('./routes/maps');
@@ -11,7 +20,6 @@ function init() {
     const leaderboard = require('./routes/leaderboard');
     const ban = require('./routes/ban');
 
-    app.use(express.json());
     app.use('/match', match);
     app.use('/maps', maps);
     app.use('/mapImage', mapImage);
@@ -21,9 +29,11 @@ function init() {
     app.listen(port, () => console.log(`Listening on port: ${port}`));
 }
 
-module.exports = new exportApi();
-function exportApi() { 
-    return {
-        init:init
-    };
+function getSSE() {
+    return sse;
+}
+
+module.exports = {
+    init:init,
+    getSSE:getSSE
 };

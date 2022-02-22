@@ -1,15 +1,15 @@
 {
     "steam": {
-        "accountName": "thelittleserver",
-        "password": "nxyD2fPFGrSs3A"
+        "accountName": "",
+        "password": ""
     },
     "api": {
         "port": 5500
     },
     "maps": [
         {
-            "mapName": "Lake",
-            "name": "cs_lake",
+            "mapName": "Overpass",
+            "name": "de_overpass",
             "workshop": false
         },
         {

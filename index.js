@@ -1,3 +1,3 @@
-require('./socket').init();
-require('./steam').init();
+// require('./socket').init();
+// require('./steam').init();
 require('./api').init();

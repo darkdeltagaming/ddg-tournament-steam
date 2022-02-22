@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const config = require('../config.json').maps;
+const { getMapState } = require('../backend');
 
 var mapList = [];
 
@@ -13,18 +14,19 @@ function refreshMapList() {
     for (var map in config) {
         mapList.push({
             display_name: config[map].mapName,
-            mapId: map
+            mapId: map,
+            status: getMapState(map)
         });
     }
     return mapList;
 }
 
 router.get('/', function (_, res) {
+    refreshMapList();
     res.status(200).json({
         maps: mapList
     });
 });
 
-refreshMapList();
 
 module.exports = router;

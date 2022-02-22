@@ -1,9 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
+/* Leaderboard stats
+    -> Kills
+    -> Deaths
+    -> Points
+*/
+
+function getLeaderboard() {
+    return [];
+}
+
 router.get('/', function (_, res) {
-    res.setState(200).json({
+    res.status(200).json({
         // TODO implement leaderboard functionality (with plugin)
+        leaderboard: getLeaderboard()
     });
 });
 
