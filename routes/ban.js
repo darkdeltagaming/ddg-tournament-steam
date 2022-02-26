@@ -1,16 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const { setMapState, dispatchMapBannedEvent } = require('../backend');
+const { banCsMap, TOURNAMENT_STATES, 
+    getTournamentState, pickMapIfPossible, getEventEmitter, getMapState } = require('../backend');
 
 router.post('/', function (req, res) {
-    // TODO implement map banning with website and SSE
-    
-    //check if mapId is correct
-    if (req.body.mapId < 0 || req.body.mapId > 5)
+    // TODO add server side userId check
+    // check if is map banning phase
+    if (getTournamentState() !== TOURNAMENT_STATES.MAP_BANNING)
         return;
-    setMapState(req.body.mapId, 1);
-    dispatchMapBannedEvent(req.body.mapId);
-    res.status(404);
+    // check if mapId is correct
+    let mapId = req.body.mapId;
+    if (typeof mapId === 'undefined')
+        return;
+    mapId = parseInt(mapId);
+    if ((mapId < 0 || mapId > 5) 
+        && getMapState(req.body))
+        return;
+    banCsMap(req.body.mapId);
+
+    // check if a map pick was achieved with the last ban
+    pickMapIfPossible();
+    getEventEmitter().emit('mapBanned');
+    res.status(200).send('{}');
 });
 
 module.exports = router;

@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { getMapList } = require('../backend');
+const { getTournamentInfo } = require('../backend');
 
 router.get('/', function (_, res) {
-    res.status(200).json({
-        maps: getMapList()
-    });
+    res.status(200).json(getTournamentInfo());
 });
 
 
