@@ -33,12 +33,12 @@ function init() {
     app.use('/tournament', tournament);
     app.use('/allowBan', allowBan);
 
-    const { startTournament } = require('./backend');
-    startTournament(config.players);
-
     app.listen(port, () => console.log(`Listening on port: ${port}`));
 }
 
+/**
+    * Custom implementation of SSEs to enable one-to-one events.
+    */
 function sseHandler(req, res, _next) {
     const headers = {
         'Content-Type': 'text/event-stream',
@@ -67,6 +67,12 @@ function sseHandler(req, res, _next) {
     });
 }
 
+/**
+    * Function to send a SSE to one and only one specific client.
+    * @param clientId The client that receives the message. Matches the player uuid.
+    * @param data The data to be sent as a JS object. NOT JSON!
+    * @param event_name Optional parameter to define an event name.
+    */
 function sseSendTo(clientId, data, event_name) {
     if (isConnected(clientId))
         return false;
@@ -78,6 +84,11 @@ function sseSendTo(clientId, data, event_name) {
     return true;
 }
 
+/**
+    * Function to send a SSE to every client connected to the event stream.
+    * @param data The data to be sent as a JS object. NOT JSON!
+    * @param event_name Optional parameter to define an event name.
+    */
 function sseSend(data, event_name) {
     if (typeof event_name === 'undefined')
         clients.forEach(client => client.eventStream.write(`data: ${JSON.stringify(data)}\n\n`))
@@ -86,6 +97,11 @@ function sseSend(data, event_name) {
             .write(`event: ${event_name}\ndata: ${JSON.stringify(data)}\n\n`));
 }
 
+/** 
+    * Function to check if a client is connected.
+    * @param clientId The clientId of the client to check for.
+    * @returns true if client is online, false otherwise.
+    */
 function isConnected(clientId) {
     return typeof clients.find(client => client.id == clientId) === 'undefined';
 }
